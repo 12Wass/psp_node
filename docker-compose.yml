@@ -1,0 +1,75 @@
+version: '3.1'
+services:
+
+    client:
+        image: node:10-alpine
+        container_name: client
+        working_dir: '/client'
+        volumes: 
+            - './client/:/client/'
+        command: 'npm run start'
+        ports:
+            - '3000:3000'
+        tty: true
+        stdin_open: true
+    
+    db:
+        image: postgres
+        container_name: db
+        environment:
+            - POSTGRES_DB=api
+            - POSTGRES_USER=root
+            - POSTGRES_PASSWORD=password
+        volumes:
+            - ./datas:/var/lib/postgresql/data:rw
+        ports:
+            - "5432:5432"
+
+    api:
+        build: 
+            context: ./
+            dockerfile: Dockerfile.api
+        container_name: api
+        working_dir: '/api'
+        environment: 
+            DATABASE_URL: "postgres://root:password@db/api"
+        volumes:
+            - './api/:/api/'
+        command: 'nodemon -L ./transpiled/index.js'
+        ports:
+            - '8888:8888'
+        depends_on: 
+            - client
+            - mongo
+            - db
+    psp:
+        build: 
+            context: ./
+            dockerfile: Dockerfile.api  # Build based on the same Dockerfile as the api
+        container_name: psp
+        working_dir: '/psp'
+        volumes:
+            - './psp/:/psp/'
+        command: 'nodemon -L ./transpiled/index.js'
+        ports:
+            - '9000:9000'
+
+    mongo:
+        image: mongo
+        container_name: mongo
+        ports:
+            - 27017:27017
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: password
+            MONGO_INITDB_DATABASE: api
+        volumes:
+            - ./collections/:/data/db/
+        working_dir: /data/db
+        command: 'mongod --auth'
+
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+            - 8080:8080

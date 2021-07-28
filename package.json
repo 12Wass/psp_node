@@ -1,0 +1,22 @@
+{
+  "name": "plateforme-paiement",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:init": "npm --prefix api/ install && npm --prefix client/ install",
+    "dev:up": "docker-compose up -d",
+    "dev:up:build": "docker-compose up -d --build",
+    "api:w": "docker-compose logs -f api",
+    "client:w": "docker-compose logs -f client"
+  },
+  "author": "me",
+  "license": "ISC",
+  "dependencies": {
+    "pg": "^8.6.0",
+    "sequelize": "^6.6.5"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.2.0"
+  }
+}
