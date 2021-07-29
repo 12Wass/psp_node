@@ -26,13 +26,14 @@ import { TvRounded } from '@material-ui/icons';
 import Brand from '../Global/Brand';
 import { InputLabel, Select } from '@material-ui/core';
 import TransactionConfig from '../../config/transactions.config';
+import {useSnackbar} from "notistack";
 
 const Currencies = TransactionConfig.currencies;
 
 const useStyles = makeStyles(theme => ({
     container: {
         padding: theme.spacing(3)
-    },  
+    },
     root: {
       maxWidth: 345,
       minHeight: 500,
@@ -73,7 +74,7 @@ function Basket() {
 
     const [open, setOpen] = useState(false);
     const [Listings, setListings] = useState(listings);
-    
+
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
     const [email, setEmail] = useState("");
@@ -82,7 +83,8 @@ function Basket() {
     const [currency,setCurrency] = useState("");
     const [total, setTotal] = useState(0);
     const [loaded, setLoaded] = useState(false);
-    
+    const { enqueueSnackbar } = useSnackbar();
+
 
     const classes = useStyles();
 
@@ -96,11 +98,11 @@ function Basket() {
     useEffect(() => {
         handleImageLoad();
     },[]);
-    
+
     const handleOpen = () => {
         setOpen(true);
     };
-    
+
     const handleClose = () => {
         setOpen(false);
     };
@@ -108,7 +110,7 @@ function Basket() {
     const handleImageLoad = () => {
         setLoaded(true);
     }
-    
+
 
     const handleConfirm = () => {
         const basket = Listings.filter(listing => listing.quantity !== 0)
@@ -141,21 +143,31 @@ function Basket() {
             })
         }).then(data => data.json())
           .then(formatedData => {
-              if(formatedData.success) window.location.href = formatedData.transaction.checkoutForm;
+              if (formatedData.success) {
+                  window.location.href = formatedData.transaction.checkoutForm;
+              } else {
+                  return enqueueSnackbar(
+                      "Vous n'avez pas le droit de passer commande.",
+                      {
+                          autoHideDuration: 3000,
+                      }
+                  );
+              }
           });
     }
 
     return (
         <div className={classes.container}>
             <form>
-                <Grid 
+                <Grid
                     container
                     direction="row"
                     justify="center"
                     alignItems="center"
                 >
                     { Listings && Listings.map(listing => (
-                        <Grid 
+                        <Grid
+                            key={listing.name}
                             item
                             container
                             direction="row"
@@ -169,10 +181,10 @@ function Basket() {
                                     <CardMedia
                                     className={classes.media}
                                     image={listing.image}
-                                    /> 
+                                    />
                                 :
                                     <Skeleton animation="wave" variant="rect" className={classes.media} />
-                                }       
+                                }
                                 <CardContent>
                                 <Typography gutterBottom variant="h5" component="h2">
                                     { loaded ?
@@ -180,7 +192,7 @@ function Basket() {
                                     :
                                         <Skeleton animation="wave"/>
                                     }
-                                    
+
                                 </Typography>
                                 <Typography variant="body2" color="textSecondary" component="h5">
                                     { loaded ?
@@ -191,8 +203,8 @@ function Basket() {
                                 </Typography>
                                 </CardContent>
                                 <CardActions className={classes.cardActions}>
-                                    <Button 
-                                        size="medium" 
+                                    <Button
+                                        size="medium"
                                         color="primary"
                                         variant="text"
                                         variant="contained"
@@ -201,14 +213,14 @@ function Basket() {
                                     >
                                         -
                                     </Button>
-                                    <Typography 
+                                    <Typography
                                         variant="body2"
                                         color={ listing.quantity > 0 ? "primary" : "textSecondary"}
                                         component="p"
                                     >
                                         { listing.quantity }
                                     </Typography>
-                                    <Button 
+                                    <Button
                                         size="medium"
                                         color="primary"
                                         variant="contained"
@@ -236,7 +248,7 @@ function Basket() {
                         justify="center"
                         alignItems="center"
                     >
-                         <Typography 
+                         <Typography
                             variant="body2"
                             color="primary"
                             component="p"
@@ -255,7 +267,7 @@ function Basket() {
                     >
                         <Typography variant="h3">{total} €</Typography>
                     </Grid>
-                    
+
                     <Box
                         width="250px"
                     >
@@ -280,7 +292,7 @@ function Basket() {
                         justify="center"
                         alignItems="center"
                     >
-                        <Button 
+                        <Button
                             color="primary"
                             variant="contained"
                             size="large"
@@ -291,7 +303,7 @@ function Basket() {
                         </Button>
                     </Grid>
                 </Grid>
-               
+
             </form>
 
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
