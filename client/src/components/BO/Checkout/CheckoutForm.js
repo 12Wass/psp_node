@@ -109,7 +109,7 @@ function CheckoutForm({ checkoutInfo, checkoutToken }) {
                 </Box>
             </Box>
             <Button disabled={processing} variant='contained' color='primary' type='submit' fullWidth>
-                {processing ? 'Processing ...' : ('Process to ' + (operation.type === Operations.types.PAYMENT ? 'payement' : 'refund'))}
+                {processing ? 'Processing ...' : ('Process to ' + (operation.type === Operations.types.PAYMENT ? 'payment' : 'refund'))}
             </Button>
             <Typography variant='subtitle2'>
                 I am a looser, so please <Link href={''} onClick={onCancel}>cancel now.</Link>

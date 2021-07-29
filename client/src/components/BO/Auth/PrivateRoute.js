@@ -16,9 +16,9 @@ function PrivateRoute ({ type, ...props}) {
         isConfirming(true);
         confirm((err, res) => {
             if (err) {
-                console.log(err);
-                //navigate.push('AuthPage', { view: SIGNIN_VIEW }); // Redirect to the login page
+                navigate.push('AuthPage', { view: SIGNIN_VIEW }); // Redirect to the login page
             }
+            isConfirming(false);
         })
     }, [ token ]);
 

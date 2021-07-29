@@ -1,6 +1,6 @@
 import express from 'express';
-import TransactionController from '../../../../buy-your-language-full/api/controllers/TransactionController';
-import JWT from '../../../../buy-your-language-full/api/services/jwt';
+import TransactionController from '../../controllers/TransactionController';
+import JWT from '../../services/jwt';
 
 const router = express.Router();
 

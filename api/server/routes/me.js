@@ -1,7 +1,7 @@
 import express from 'express';
-import MeController from '../../../../buy-your-language-full/api/controllers/MeController';
-import Auth from '../../../../buy-your-language-full/api/services/auth';
-import JWT from '../../../../buy-your-language-full/api/services/jwt';
+import MeController from '../../controllers/MeController';
+import Auth from '../../services/auth';
+import JWT from '../../services/jwt';
 
 const router = express.Router();
 

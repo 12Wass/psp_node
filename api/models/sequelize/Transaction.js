@@ -1,4 +1,4 @@
-import sequelize from '../../../../buy-your-language-full/api/lib/sequelize';
+import sequelize from '../../lib/sequelize';
 import { DataTypes, Model } from 'sequelize';
 import User from './User';
 import Operation from './Operation';

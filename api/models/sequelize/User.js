@@ -1,4 +1,4 @@
-import sequelize from '../../../../buy-your-language-full/api/lib/sequelize';
+import sequelize from '../../lib/sequelize';
 import { DataTypes, Model } from 'sequelize';
 import bcrypt from 'bcryptjs';
 import Transaction from './Transaction';

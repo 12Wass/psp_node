@@ -1,6 +1,6 @@
 import express from 'express';
-import UserController from '../../../../buy-your-language-full/api/controllers/UserController';
-import JWT from '../../../../buy-your-language-full/api/services/jwt';
+import UserController from '../../controllers/UserController'
+import JWT from '../../services/jwt';
 
 const router = express.Router();
 
