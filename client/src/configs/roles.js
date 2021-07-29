@@ -1,0 +1,5 @@
+export default {
+    CUSTOMER: "CUSTOMER",
+    TRADER: "TRADER",
+    ADMINISTRATOR: "ADMINISTRATOR",
+};
