@@ -24,7 +24,7 @@ function TransactionDetails({ goBack, transaction, cancelOperation, createRefund
     };
     
     return (
-        <React.Fragment>
+        <>
             <AppBar elevation={0} color='primary' position='sticky' style={{zIndex: 99}}>
                 <Toolbar>
                     <IconButton onClick={goBack} color='secondary'>
@@ -43,7 +43,7 @@ function TransactionDetails({ goBack, transaction, cancelOperation, createRefund
                     <Panel key={_tab.label} transaction={transaction} tab={_tab} value={tab} index={_tab.label} cancelOperation={cancelOperation} createRefundIntent={createRefundIntent} />
                 ))
             }
-        </React.Fragment>
+        </>
     )
 }
 

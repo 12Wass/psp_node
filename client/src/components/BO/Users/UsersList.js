@@ -21,7 +21,7 @@ function UsersList() {
     }, []);
     
     return (
-        <React.Fragment>
+        <>
             <Container maxWidth='sm'>
 
                 <List>
@@ -35,7 +35,7 @@ function UsersList() {
                 </List>
                 
             </Container>
-        </React.Fragment>
+        </>
     )
 }
 

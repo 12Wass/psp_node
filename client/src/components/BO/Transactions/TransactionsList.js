@@ -42,7 +42,7 @@ function TransactionsList() {
 
                 <List>
                     { transactions.map((transaction, key) => (
-                            <React.Fragment>
+                            <>
                                 <Transaction 
                                     key={key} 
                                     transaction={transaction} 
@@ -53,7 +53,7 @@ function TransactionsList() {
                                     createRefundIntent={handleCreateRefundIntent}
                                 />
                                 {(key !== transactions.length-1) && <Divider />}
-                            </React.Fragment>
+                            </>
                         )) 
                     }
                 </List>
@@ -66,7 +66,7 @@ function TransactionsList() {
 const Transaction = ({ transaction, onSelect, selectedTransaction, goBack, cancelOperation, createRefundIntent }) => {
     
     return (
-        <React.Fragment>
+        <>
             <ListItem button alignItems="flex-start" onClick={e => onSelect(transaction.id)}>
                 <ListItemAvatar>
                     <Avatar alt={`${transaction.customer.firstname} ${transaction.customer.lastname}`}/>
@@ -74,7 +74,7 @@ const Transaction = ({ transaction, onSelect, selectedTransaction, goBack, cance
                 <ListItemText
                     primary={<><strong>#{transaction.id}</strong> - {transaction.customer.firstname} {transaction.customer.lastname}, le {moment(transaction.createdAt).format('DD/MM/YYYY')}</>}
                     secondary={
-                        <React.Fragment>
+                        <>
                             <PrivateComponent type='admin'>
                                 <Typography component='p' color='primary'>
                                     {transaction.User.firstname} {transaction.User.lastname} | {transaction.User.email}
@@ -91,7 +91,7 @@ const Transaction = ({ transaction, onSelect, selectedTransaction, goBack, cance
                                 </Typography>
                             </Typography>
                             {" -- "} {transaction.basket.length} product(s)
-                        </React.Fragment>
+                        </>
                     }
                 />
             </ListItem>
@@ -109,7 +109,7 @@ const Transaction = ({ transaction, onSelect, selectedTransaction, goBack, cance
                 }
             </Collapse>
 
-        </React.Fragment>
+        </>
     )
 };
 

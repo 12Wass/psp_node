@@ -8,7 +8,7 @@ import PrivateDataLoader from './PrivateDataLoader';
 
 function PrivateRoute ({ type, ...props}) {
 
-    const [{ user, token }, { confirm }] = useAuth();
+    const [{ user, token }, { confirm }] = useAuth();
     const [confirming, isConfirming] = useState(true);
 
     useEffect(() => {
@@ -16,10 +16,9 @@ function PrivateRoute ({ type, ...props}) {
         isConfirming(true);
         confirm((err, res) => {
             if (err) {
-                navigate.push('AuthPage', { view: SIGNIN_VIEW }); // Redirect to the login page
+                console.log(err);
+                //navigate.push('AuthPage', { view: SIGNIN_VIEW }); // Redirect to the login page
             }
-            // Stop confirming
-            isConfirming(false);
         })
     }, [ token ]);
 
@@ -35,10 +34,10 @@ function PrivateRoute ({ type, ...props}) {
     if (type && !type.split('|').includes(user.type)) navigate.push('NotFoundPage');
     
     return (
-        <React.Fragment>
+        <>
             <PrivateDataLoader />
             <Route {...props} />
-        </React.Fragment>
+        </>
     );
 }
 

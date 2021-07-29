@@ -7,7 +7,7 @@ function CustomerPanel({ transaction }) {
     const { customer } = transaction;
     
     return (
-        <React.Fragment>
+        <>
             <Typography component='p'>
                 {customer.firstname} {customer.lastname}
             </Typography>
@@ -22,7 +22,7 @@ function CustomerPanel({ transaction }) {
                 <LocalShippingIcon /> {transaction.deliveryAddress}
             </Typography>
             
-        </React.Fragment>
+        </>
     )
 }
 
